@@ -1,6 +1,7 @@
 // import 'dart:js';
 
 import 'package:assignment_mobile_app/APIRequest.dart';
+import 'package:assignment_mobile_app/productsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_mobile_app/APIRequest.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
               apiRequest: apiRequest,
               context: context,
             ),
+        '/products': (context) => ProductsPage(), // Add ProductsPage route
       },
     );
   }
@@ -44,20 +46,9 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  // signUp() async {
-  //   var res = await _info.postReq(LinkSignUp, {
-  //     "userName": _usernameController.text,
-  //     "password": _passwordController.text,
-  //     "email": _emailController.text,
-  //   });
-  //   // if (res['status'] == 'success') {
-  //   //   Navigator.of( context).pushNamed('/login');
-  //   // } else {
-
-  //   // }
-  // }
+  
   signUp() async {
-    // try {
+    try {
       var res = await apiRequest.postRequest('register', {
         "name": _usernameController.text,
         "email": _emailController.text,
@@ -70,24 +61,21 @@ class SignUpPage extends StatelessWidget {
           content: Text('Sign up successful!'),
         ),
       );
-        print('sign up gooood');
+      Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
       } else {
-        print('sign up baaad');
-
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //     content: Text('Sign up failed:'),
-        //   ),
-        // );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Sign up failed:'),
+          ),
+        );
        }
-    // } catch (e) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: Text('Failed to connect to the server'),
-    //     ),
-    //   );
-    //   print(e);
-    //}
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to connect to the server'),
+        ),
+      );
+    }
   }
 
   @override
@@ -144,11 +132,11 @@ class SignUpPage extends StatelessWidget {
                   // if (_formKey.currentState!.validate()) {
                   await signUp();
                   // Process sign up
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Sign up successful!'),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text('Sign up successful!'),
+                  //   ),
+                  // );
                   // }
                 },
                 child: Text('Sign Up'),
@@ -184,19 +172,20 @@ class LoginPage extends StatelessWidget {
         "password": _passwordController.text,
       });
 
-      if (res['status'] == 'success') {
-        print('login gooood');
+      if (res != null && res['status'] == 'success') {
+        // print('login gooood');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Login successful!'),
           ),
         );
+        Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
       } else {
-        print('login bad');
+        // print('login bad');
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Login failed: ${res['message']}'),
+            content: Text('Login failed'),
           ),
         );
       }
@@ -249,15 +238,16 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                onPressed: () async{
+                  await login();
+                  // if (_formKey.currentState!.validate()) {
                     // Process login
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Login successful!'),
-                      ),
-                    );
-                  }
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   const SnackBar(
+                    //     content: Text('Login successful!'),
+                    //   ),
+                    // );
+                  // }
                 },
                 child: Text('Login'),
               ),
