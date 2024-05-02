@@ -1,3 +1,4 @@
+import 'package:assignment_mobile_app/productsPage.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,14 +17,10 @@ class APIRequest {
       );
       print('http.post =>success');
       if (response.statusCode == 200) {
-        // print(response.statusCode);
         var responseBody = jsonDecode(response.body);
-        print(response);
-        print("=======================");
         return responseBody;
       } else {
         print('status code not 200 ${response.statusCode}');
-
         // throw Exception('Failed to load data');
       }
     } catch (e) {
@@ -31,4 +28,30 @@ class APIRequest {
       // throw Exception('Failed to connect to the server');
     }
   }
+
+  Future<List<Product>> getUserProducts(String endpoint) async {
+    try {
+      var response = await http.get(
+        Uri.parse('$baseURL/$endpoint'),
+        // headers: {'Authorization': 'Bearer $authToken'},
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseData = jsonDecode(response.body);
+        return responseData.map((data) => Product(
+          name: data['name'],
+          image: data['image'],
+          description: data['description'],
+          price: data['price'],
+        )).toList();
+      } else {
+        throw Exception('Failed to load user products');
+      }
+    } catch (e) {
+      throw Exception('Error fetching user products: $e');
+    }
+  }
 }
+
+
+

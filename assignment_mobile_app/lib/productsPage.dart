@@ -1,3 +1,4 @@
+import 'package:assignment_mobile_app/APIRequest.dart';
 import 'package:flutter/material.dart';
 
 class Product {
@@ -15,26 +16,7 @@ class Product {
 }
 
 class ProductsPage extends StatelessWidget {
-  final List<Product> products = [
-    Product(
-      name: 'Product 1',
-      image: 'assets/images/product1.jpg',
-      description: 'Description for Product 1',
-      price: 19.99,
-    ),
-    Product(
-      name: 'Product 2',
-      image: 'assets/images/product2.jpg',
-      description: 'Description for Product 2',
-      price: 29.99,
-    ),
-    Product(
-      name: 'Product 3',
-      image: 'assets/images/product3.jpg',
-      description: 'Description for Product 3',
-      price: 39.99,
-    ),
-  ];
+  final APIRequest apiRequest = APIRequest(baseURL: 'http://10.0.2.2:8000/api');
 
   @override
   Widget build(BuildContext context) {
@@ -42,31 +24,58 @@ class ProductsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Products'),
       ),
-      body: ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Image.asset(
-                products[index].image,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-              title: Text(products[index].name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Price: \$${products[index].price.toStringAsFixed(2)}'),
-                  Text(products[index].description),
-                ],
-              ),
-              onTap: () {
-                // Handle product tap, e.g., navigate to product details page
+      body: FutureBuilder<List<Product>>(
+        future: apiRequest.getUserProducts('products'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            List<Product> products = snapshot.data!;
+            return ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(12.0),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          products[index].image,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      title: Text(products[index].name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 4.0),
+                          Text(
+                              'Price: \$${products[index].price.toStringAsFixed(2)}'),
+                          SizedBox(height: 4.0),
+                          Text(products[index].description),
+                        ],
+                      ),
+                      onTap: () {
+                        // Handle product tap, e.g., navigate to product details page
+                      },
+                    ),
+                  ),
+                );
               },
-            ),
-          );
+            );
+          } else {
+            return Center(child: Text('No data available'));
+          }
         },
       ),
     );
