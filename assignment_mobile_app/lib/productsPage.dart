@@ -25,7 +25,7 @@ class ProductsPage extends StatelessWidget {
         title: Text('Products'),
       ),
       body: FutureBuilder<List<Product>>(
-        future: apiRequest.getUserProducts('products'),
+        future: apiRequest.getUserProducts('product'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
