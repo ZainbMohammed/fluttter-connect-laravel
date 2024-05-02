@@ -18,10 +18,12 @@ class APIRequest {
       if (response.statusCode == 200) {
         // print(response.statusCode);
         var responseBody = jsonDecode(response.body);
+        print(response);
+        print("=======================");
         return responseBody;
       } else {
         print('status code not 200 ${response.statusCode}');
-        
+
         // throw Exception('Failed to load data');
       }
     } catch (e) {

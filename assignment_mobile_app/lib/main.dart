@@ -54,20 +54,28 @@ class SignUpPage extends StatelessWidget {
         "email": _emailController.text,
         "password": _passwordController.text,
       });
-      if (res != null && res['status'] == 'success') {
-        // Navigator.of(context).pushNamed('/login');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text('Sign up successful!'),
+      //   ),
+      // );
+      //  Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
+      
+      if (res == null ) {
         ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Sign up successful!'),
+          content: Text('Sign up successful! '),
         ),
       );
-      Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
+       Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
+
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Sign up failed:'),
+            content: Text('Sign up failed'),
           ),
         );
+
        }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -138,6 +146,7 @@ class SignUpPage extends StatelessWidget {
                   //   ),
                   // );
                   // }
+
                 },
                 child: Text('Sign Up'),
               ),
@@ -172,22 +181,23 @@ class LoginPage extends StatelessWidget {
         "password": _passwordController.text,
       });
 
-      if (res != null && res['status'] == 'success') {
+      if (res['token'] == null) {
         // print('login gooood');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Login successful!'),
+            content: Text('Login failed!'),
           ),
         );
-        Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
       } else {
         // print('login bad');
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Login failed'),
+            content: Text('Login successful'),
           ),
         );
+                Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
+
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
