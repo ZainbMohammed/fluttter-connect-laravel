@@ -42,7 +42,7 @@ class APIRequest {
           name: data['name'],
           image: data['image'],
           description: data['description'],
-          price: data['price'],
+          price: double.parse(data['price'].toString()),
         )).toList();
       } else {
         throw Exception('Failed to load user products');
