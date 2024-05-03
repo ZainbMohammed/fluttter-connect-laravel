@@ -1,4 +1,5 @@
 import 'package:assignment_mobile_app/APIRequest.dart';
+import 'package:assignment_mobile_app/addProduct.dart';
 import 'package:flutter/material.dart';
 
 class Product {
@@ -47,8 +48,8 @@ class ProductsPage extends StatelessWidget {
                       contentPadding: EdgeInsets.all(12.0),
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          products[index].image,
+                        child: Image.asset(
+                          "assets/images/product$index.jpg",
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
@@ -77,6 +78,15 @@ class ProductsPage extends StatelessWidget {
             return Center(child: Text('No data available'));
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // final BuildContext context; // Add this line
+
+          // APIRequest apiRequest = APIRequest(baseURL: 'http://10.0.2.2:8000/api');
+          Navigator.pushNamed(context, '/login');
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

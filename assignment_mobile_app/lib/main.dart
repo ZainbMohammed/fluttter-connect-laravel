@@ -1,6 +1,7 @@
 // import 'dart:js';
 
 import 'package:assignment_mobile_app/APIRequest.dart';
+import 'package:assignment_mobile_app/addProduct.dart';
 import 'package:assignment_mobile_app/productsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_mobile_app/APIRequest.dart';
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
               apiRequest: apiRequest,
               context: context,
             ),
-        '/products': (context) => ProductsPage(), // Add ProductsPage route
+        '/products': (context) => ProductsPage(), 
+        '/addproducts' : (context) => AddProduct(
+            apiRequest: apiRequest, context: context), // Add ProductsPage route
       },
     );
   }
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
 
 class SignUpPage extends StatelessWidget {
   final APIRequest apiRequest;
-  final BuildContext context; // Add this line
+  final BuildContext context;
 
   SignUpPage({required this.apiRequest, required this.context});
 
@@ -137,15 +140,15 @@ class SignUpPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  // if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                   await signUp();
-                  // Process sign up
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('Sign up successful!'),
-                  //   ),
-                  // );
-                  // }
+                  //Process sign up
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Sign up successful!'),
+                    ),
+                  );
+                  }
 
                 },
                 child: Text('Sign Up'),
@@ -249,15 +252,15 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async{
-                  await login();
-                  // if (_formKey.currentState!.validate()) {
-                    // Process login
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   const SnackBar(
-                    //     content: Text('Login successful!'),
-                    //   ),
-                    // );
-                  // }
+                  if (_formKey.currentState!.validate()) {
+                    await login();
+                    //Process login
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Login successful!'),
+                      ),
+                    );
+                  }
                 },
                 child: Text('Login'),
               ),
