@@ -82,9 +82,8 @@ class ProductsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // final BuildContext context; // Add this line
-
           // APIRequest apiRequest = APIRequest(baseURL: 'http://10.0.2.2:8000/api');
-          Navigator.pushNamed(context, '/login');
+          Navigator.pushNamed(context, '/addproducts');
         },
         child: Icon(Icons.add),
       ),

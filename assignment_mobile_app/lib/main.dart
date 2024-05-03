@@ -57,13 +57,6 @@ class SignUpPage extends StatelessWidget {
         "email": _emailController.text,
         "password": _passwordController.text,
       });
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Sign up successful!'),
-      //   ),
-      // );
-      //  Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
-      
       if (res == null ) {
         ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
