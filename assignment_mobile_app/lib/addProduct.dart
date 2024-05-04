@@ -22,13 +22,7 @@ class AddProduct extends StatelessWidget {
         "price": _priceController.text,
         "description": _descriptionController.text,
       });
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Sign up successful!'),
-      //   ),
-      // );
-      //  Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
-
+      
       if (res == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -116,12 +110,6 @@ class AddProduct extends StatelessWidget {
                 child: Text('add Product'),
               ),
               const SizedBox(height: 10),
-              // TextButton(
-              //   onPressed: () {
-              //     Navigator.pushNamed(context, '/login');
-              //   },
-              //   child: const Text('Already have an account? Log in'),
-              // ),
             ],
           ),
         ),

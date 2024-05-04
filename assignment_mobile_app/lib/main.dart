@@ -71,7 +71,6 @@ class SignUpPage extends StatelessWidget {
             content: Text('Sign up failed'),
           ),
         );
-
        }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
