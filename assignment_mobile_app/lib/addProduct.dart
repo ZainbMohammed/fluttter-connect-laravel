@@ -3,25 +3,6 @@ import 'package:assignment_mobile_app/productsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_mobile_app/APIRequest.dart';
 
-// class MyApp extends StatelessWidget {
-//   final APIRequest apiRequest = APIRequest(baseURL: 'http://10.0.2.2:8000/api');
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Authentication App',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       initialRoute: '/',
-//       routes: {
-//         '/': (context) => AddProduct(
-//             apiRequest: apiRequest, context: context), // Add ProductsPage route
-//       },
-//     );
-//   }
-// }
-
 class AddProduct extends StatelessWidget {
   final APIRequest apiRequest;
   final BuildContext context;
