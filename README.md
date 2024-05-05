@@ -4,7 +4,7 @@
 ![Signup Page](signup.png)
 
 ## Login
-![Login Page](signup.png)
+![Login Page](login.png)
 
 ## Products
-![Products Page](signup.png)
+![Products Page](products.png)
