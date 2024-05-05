@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => SignUpPage(
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
               apiRequest: apiRequest,
               context: context,
             ),
-        '/products': (context) => ProductsPage(), 
-        '/addproducts' : (context) => AddProduct(
+        '/products': (context) => ProductsPage(),
+        '/addproducts': (context) => AddProduct(
             apiRequest: apiRequest, context: context), // Add ProductsPage route
       },
     );
@@ -49,7 +50,7 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  
+
   signUp() async {
     try {
       var res = await apiRequest.postRequest('register', {
@@ -57,21 +58,21 @@ class SignUpPage extends StatelessWidget {
         "email": _emailController.text,
         "password": _passwordController.text,
       });
-      if (res == null ) {
+      if (res == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Sign up successful! '),
-        ),
-      );
-       Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
-
+          const SnackBar(
+            content: Text('Sign up successful! '),
+          ),
+        );
+        Navigator.pushReplacementNamed(
+            context, '/products'); // Navigate to ProductsPage
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Sign up failed'),
           ),
         );
-       }
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -133,15 +134,14 @@ class SignUpPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                  await signUp();
-                  //Process sign up
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Sign up successful!'),
-                    ),
-                  );
+                    await signUp();
+                    //Process sign up
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Sign up successful!'),
+                      ),
+                    );
                   }
-
                 },
                 child: Text('Sign Up'),
               ),
@@ -191,8 +191,8 @@ class LoginPage extends StatelessWidget {
             content: Text('Login successful'),
           ),
         );
-                Navigator.pushReplacementNamed(context, '/products'); // Navigate to ProductsPage
-
+        Navigator.pushReplacementNamed(
+            context, '/products'); // Navigate to ProductsPage
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -243,7 +243,7 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async{
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await login();
                     //Process login
